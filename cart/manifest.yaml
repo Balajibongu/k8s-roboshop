@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: configMap
+metadata:
+  name: cart-configmap
+data:
+  REDIS_HOST: "redis"
+  CATALOGUE_HOST: "catalogue"
+  CATALOGUE_PORT: "8080"
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: cart
+  namespace: roboshop
+  labels:
+    name: roboshop
+    env: dev
+    running: cart
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      name: roboshop
+      env: dev
+      running: cart
+  template:
+    metadata:
+      labels:
+        name: roboshop
+        env: dev
+        running: cart
+  spec:
+    containers:
+    - name: cart
+      image: balaji1729/cart:v1
+      imagePullPolicy: Always
+      ports:
+      - containerPort: 8080
+      envForm:
+      - configMapRef:
+          name: cart-configmap 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-service
+spec:
+  type: ClusterIp
+  selector:
+    matchLabels:
+      name: roboshop
+      env: dev
+      running: cart
+  ports:
+    - protocal: TCP
+      port: 8080
+      targetport: 8080
