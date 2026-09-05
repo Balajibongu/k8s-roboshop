@@ -5,9 +5,9 @@ metadata:
   namespace: roboshop
   labels: 
     name: roboshop
-    emv: dev
+    env: dev
 spec:
-  container:
+  containers:
   - name: debug
     image: balaji1729/debug:v1
     imagePullPolicy: Always
