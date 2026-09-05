@@ -7,7 +7,7 @@ data:
   REDIS_URL: "redis://redis:6379"
   MONGO_URL: "mongodb://mongodb:27017/users"
 ---
-apiVersion: v1
+apiVersion: app/v1
 kind: Deployment
 metadata:
   name: user

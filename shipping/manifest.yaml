@@ -6,7 +6,7 @@ data:
   CART_ENDPOINT: cart:8080
   DB_HOST: mysql
 ---
-apiVersion: v1
+apiVersion: vapp/v1
 kind: Deployment
 metadata:
   name: shipping
