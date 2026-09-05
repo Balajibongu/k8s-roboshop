@@ -47,14 +47,14 @@ metadata:
   name: redis-service
   namespace: roboshop
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
       name: roboshop
       env: dev
       running: redis
   ports:
-    - protocal: TCP
+    - protocol: TCP
       port: 6379
-      targetport: 6379
+      targetPort: 6379
   
 

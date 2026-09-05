@@ -56,12 +56,12 @@ metadata:
   name: rabbitmq-service
   namespace: roboshop
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
       name: roboshop
       env: dev
       running: rabbitmq
   ports:
-      - protocal: TCP
+      - protocol: TCP
         port: 5672
-        targetport: 5672
+        targetPort: 5672

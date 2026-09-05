@@ -64,12 +64,12 @@ metadata:
   name: payment-service
   namespace: roboshop
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
       name: roboshop
       env: dev
       running: payment
   ports:
-    - protocal: TCP
+    - protocol: TCP
       port: 8080
-      targetport: 8080
+      targetPort: 8080

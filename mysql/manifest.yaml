@@ -47,14 +47,14 @@ metadata:
   name: mysql-service
   namespace: roboshop
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
       name: roboshop
       env: dev
       running: mysql
   ports:
-    - protocal: TCP
+    - protocol: TCP
       port: 3306
-      targetport: 3306
+      targetPort: 3306
   
 
