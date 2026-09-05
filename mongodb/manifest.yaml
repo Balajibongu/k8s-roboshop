@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: mongodb
   namespace: roboshop
@@ -7,54 +8,63 @@ metadata:
     name: roboshop
     env: dev
     running: mongodb
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       name: roboshop
       env: dev
       running: mongodb
+
   template:
     metadata:
       labels:
         name: roboshop
         env: dev
         running: mongodb
-  spec:
-    containers:
-    - name: mongodb
-      image: balaji1729/mongodb:v1
-      imagePullPolicy: Always
-      ports:
-      - name: liveness-port
-        containerPort: 27017
-      readinessProbe:
-        httpGet:
-          path: /health
-          port: liveness-probe
-        failureThreshold: 1
-        periodSeconds: 20
-      livenessProbe:
-        httpGet:
-          path: /health
-          port: liveness-port
-        failureThreshold: 1
-        periodSeconds: 30
+
+    spec:
+      containers:
+        - name: mongodb
+          image: balaji1729/mongodb:v1
+          imagePullPolicy: Always
+
+          ports:
+            - name: mongodb
+              containerPort: 27017
+
+          readinessProbe:
+            tcpSocket:
+              port: mongodb
+            failureThreshold: 1
+            periodSeconds: 20
+
+          livenessProbe:
+            tcpSocket:
+              port: mongodb
+            failureThreshold: 1
+            periodSeconds: 30
+
 ---
+
 apiVersion: v1
 kind: Service
+
 metadata:
   name: mongodb-service
   namespace: roboshop
-spec:
-  type: ClusterIp
-  selector:
-      name: roboshop
-      env: dev
-      running: mongodb
-  ports:
-    - protocal: TCP
-      port: 27017
-      targetport: 27017
-  
 
+spec:
+  type: ClusterIP
+
+  selector:
+    name: roboshop
+    env: dev
+    running: mongodb
+
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
