@@ -29,15 +29,13 @@ spec:
         - name: liveness-port 
           containerPort: 6379
         readinessProbe:
-          httpGet:
-            path: /health
-            port: liveness-port
+          tcpSocket:
+            port: mongodb
           failureThreshold: 1
           periodSeconds: 20
         livenessProbe:
-          httpGet:
-            path: /health
-            port: liveness-port
+          tcpSocket:
+            port: mongodb
           failureThreshold: 1
           periodSeconds: 30
 ---
