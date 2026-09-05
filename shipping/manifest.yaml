@@ -56,7 +56,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shipping-service
+  name: shipping
   namespace: roboshop
 spec:
   type: ClusterIP
