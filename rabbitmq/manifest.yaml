@@ -34,6 +34,9 @@ spec:
       - name: rabbitmq
         image: rabbitmq:3
         imagePullPolicy: Always
+        envFrom:
+          configMapRef:
+          - name: rabbitmq-configmap
         ports:
         - name: liveness-port 
           containerPort: 5672
