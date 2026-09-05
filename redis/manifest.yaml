@@ -26,9 +26,20 @@ spec:
       image: redis:7.0
       imagePullPolicy: Always
       ports:
-      - protocal: TCP
-        port: 6379
-        targetport: 6379
+      - name: liveness-port 
+        containerPort: 6379
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: liveness-probe
+        failureThreshold: 1
+        periodSeconds: 20
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: liveness-port
+        failureThreshold: 1
+        periodSeconds: 30
 ---
 apiVersion: v1
 kind: Service
@@ -41,11 +52,9 @@ spec:
       name: roboshop
       env: dev
       running: redis
-  template:
-    metadata:
-      labels:
-        name: roboshop
-        env: dev
-        running: redis
+  ports:
+    - protocal: TCP
+      port: 6379
+      targetport: 6379
   
 

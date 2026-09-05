@@ -35,10 +35,24 @@ spec:
       image: balaji1729/cart:v1
       imagePullPolicy: Always
       ports:
-      - containerPort: 8080
+      - name: liveness-port
+        containerPort: 8080
       envForm:
       - configMapRef:
           name: cart-configmap 
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: liveness-probe
+        failureThreshold: 1
+        periodSeconds: 20
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: liveness-port
+        failureThreshold: 1
+        periodSeconds: 30
+
 
 ---
 apiVersion: v1
