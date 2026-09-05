@@ -29,26 +29,26 @@ spec:
         name: roboshop
         env: dev
         running: rabbitmq
-  spec:
-    containers:
-    - name: rabbitmq
-      image: rabbitmq:3
-      imagePullPolicy: Always
-      ports:
-      - name: liveness-port 
-        containerPort: 5672
-      readinessProbe:
-        httpGet:
-          path: /health
-          port: liveness-port
-        failureThreshold: 1
-        periodSeconds: 20
-      livenessProbe:
-        httpGet:
-          path: /health
-          port: liveness-port
-        failureThreshold: 1
-        periodSeconds: 30
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3
+        imagePullPolicy: Always
+        ports:
+        - name: liveness-port 
+          containerPort: 5672
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 30
 ---
 apiVersion: v1
 kind: Service
