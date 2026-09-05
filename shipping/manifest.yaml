@@ -34,7 +34,7 @@ spec:
     - name: shipping
       image: balaji1729/shipping
       imagePullPolicy: Always
-      envForm:
+      envFrom:
       - configMapRef:
           name: shipping-configmap 
       ports:
@@ -43,7 +43,7 @@ spec:
       readinessProbe:
         httpGet:
           path: /health
-          port: liveness-probe
+          port: liveness-port
         failureThreshold: 1
         periodSeconds: 20
       livenessProbe:

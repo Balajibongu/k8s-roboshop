@@ -31,7 +31,7 @@ spec:
       readinessProbe:
         httpGet:
           path: /health
-          port: liveness-probe
+          port: liveness-port
         failureThreshold: 1
         periodSeconds: 20
       livenessProbe:

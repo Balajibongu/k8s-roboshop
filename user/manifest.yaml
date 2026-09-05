@@ -38,13 +38,13 @@ spec:
       ports:
       - name: liveness-port
         containerPort: 8080
-      envForm:
+      envFrom:
       - configMapRef:
           name: user-configmap 
       readinessProbe:
         httpGet:
           path: /health
-          port: liveness-probe
+          port: liveness-port
         failureThreshold: 1
         periodSeconds: 20
       livenessProbe:
