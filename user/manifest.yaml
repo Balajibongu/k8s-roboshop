@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: balaji1729/user
+        image: balaji1729/user:v1
         imagePullPolicy: Always
         ports:
         - name: liveness-port
