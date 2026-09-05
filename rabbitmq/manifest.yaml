@@ -2,11 +2,12 @@ apiVersion: v1
 kind: configMap
 metadata:
   name: rabbitmq-configmap
+  namespace: roboshop
 data:
   RABBITMQ_DEFAULT_USER: "rabbitmq"
   RABBITMQ_DEFAULT_PASS: "rabbitmq123"
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbitmq
@@ -53,10 +54,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rabbitmq-service
+  namespace: roboshop
 spec:
   type: ClusterIp
   selector:
-    matchLabels:
       name: roboshop
       env: dev
       running: rabbitmq

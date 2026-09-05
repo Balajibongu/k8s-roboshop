@@ -2,12 +2,13 @@ apiVersion: v1
 kind: configMap
 metadata:
   name: user-configmap
+  namespace: roboshop
 data:
   MONGO: "true"
   REDIS_URL: "redis://redis:6379"
   MONGO_URL: "mongodb://mongodb:27017/users"
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
@@ -57,10 +58,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-service
+  namespace: roboshop
 spec:
   type: ClusterIp
   selector:
-    matchLabels:
       name: roboshop
       env: dev
       running: user

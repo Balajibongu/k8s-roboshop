@@ -2,6 +2,7 @@ apiVersion: v1
 kind: configMap
 metadata:
   name: cart-configmap
+  namespace: roboshop
 data:
   REDIS_HOST: "redis"
   CATALOGUE_HOST: "catalogue"
@@ -59,10 +60,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cart-service
+  namespace: roboshop
 spec:
   type: ClusterIp
   selector:
-    matchLabels:
       name: roboshop
       env: dev
       running: cart

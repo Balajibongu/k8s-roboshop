@@ -2,11 +2,12 @@ apiVersion: v1
 kind: configMap
 metadata:
   name: catalogue-configmap
+  namespace: roboshop
 data:
   MONGO: "true"
   MONGO_URL: "mongodb://mongodb:27017/catalogue"
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalogue
@@ -56,10 +57,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catalogue-service
+  namespace: roboshop
 spec:
   type: ClusterIp
   selector:
-    matchLabels:
       name: roboshop
       env: dev
       running: catalogue

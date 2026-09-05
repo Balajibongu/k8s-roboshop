@@ -1,4 +1,4 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
@@ -45,10 +45,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-service
+  namespace: roboshop
 spec:
   type: ClusterIp
   selector:
-    matchLabels:
       name: roboshop
       env: dev
       running: mongodb
