@@ -30,12 +30,12 @@ spec:
           containerPort: 6379
         readinessProbe:
           tcpSocket:
-            port: mongodb
+            port: 6379
           failureThreshold: 1
           periodSeconds: 20
         livenessProbe:
           tcpSocket:
-            port: mongodb
+            port: 6379
           failureThreshold: 1
           periodSeconds: 30
 ---

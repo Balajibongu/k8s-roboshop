@@ -42,12 +42,12 @@ spec:
           containerPort: 5672
         readinessProbe:
           tcpSocket:
-            port: mongodb
+            port: 5672
           failureThreshold: 1
           periodSeconds: 20
         livenessProbe:
           tcpSocket:
-            port: mongodb
+            port: 5672
           failureThreshold: 1
           periodSeconds: 30
 ---
