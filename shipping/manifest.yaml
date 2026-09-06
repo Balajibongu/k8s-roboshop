@@ -6,6 +6,7 @@ metadata:
 data:
   CART_ENDPOINT: cart:8080
   DB_HOST: mysql
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -16,54 +17,68 @@ metadata:
     name: roboshop
     env: dev
     running: shipping
-spec: 
+
+spec:
   replicas: 1
+
   selector:
     matchLabels:
       name: roboshop
       env: dev
       running: shipping
+
   template:
     metadata:
       labels:
         name: roboshop
         env: dev
         running: shipping
+
     spec:
       containers:
-      - name: shipping
-        image: balaji1729/shipping:v1
-        imagePullPolicy: Always
-        envFrom:
-        - configMapRef:
-            name: shipping-configmap 
-        ports:
-        - name: liveness-port 
-          containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: liveness-port
-          failureThreshold: 1
-          periodSeconds: 20
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: liveness-port
-          failureThreshold: 1
-          periodSeconds: 30
+        - name: shipping
+          image: balaji1729/shipping:v1
+          imagePullPolicy: Always
+
+          envFrom:
+            - configMapRef:
+                name: shipping-configmap
+
+          ports:
+            - name: http
+              containerPort: 8080
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            failureThreshold: 3
+            periodSeconds: 20
+            initialDelaySeconds: 20
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: shipping
   namespace: roboshop
+
 spec:
   type: ClusterIP
+
   selector:
-      name: roboshop
-      env: dev
-      running: shipping
+    name: roboshop
+    env: dev
+    running: shipping
+
   ports:
     - protocol: TCP
       port: 8080
