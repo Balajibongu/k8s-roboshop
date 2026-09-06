@@ -1,4 +1,4 @@
-FROM almalinux:latest
+FROM almalinux:8
 RUN dnf install -y \
     telnet \
     iputils \
